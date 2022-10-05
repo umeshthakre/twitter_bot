@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script type="text/javascript">
+    $(document).ready(() => {
+
+        $("#form1").submit((event) => {
+            event.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/',
+                data: $('#form1').serialize(),
+                dataType: "json",
+                success: (response) => {
+                    $('#form1')[0].reset();
+
+                    document.getElementById("check").innerHTML = response.Success;
+                    setTimeout(() => {
+                        document.getElementById("check").innerHTML = "";
+                    }, 3000);
+                    
+                },
+                error: (err) => {
+                    console.log(err)
+                }
+            })
+        });
+    });
+</script>
+<body>
+<h1>Twitter bot form</h1>
+    <form id="form1" method="POST" action="/tweetreply">
+    <table>
+        <tr>
+            <td>Text to Search</td>
+            <td><input type="text" name="searchParam" ></td>
+            </tr>
+        <tr>
+        <td>Text to tweet</td>
+        <td><input type="text" name="textToTweet" ></td>
+        </tr>
+        <tr>
+        <td>number of tweets to tweet</td>
+        <td><input type="text" name="numberOFTweets" ></td>
+        </tr>
+        
+        <tr>
+        <td colspan="2"><input type="submit" value="reply" ></td>
+        </tr>
+    </table>
+    <div class="mssg bg-danger">
+        <span id="check"></span>
+    </div>
+    </form>   
+   
+</body>
+</html>
+
+    
