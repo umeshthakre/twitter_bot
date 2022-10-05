@@ -78,7 +78,7 @@ app.get("/",(req,res)=>{
     res.render("form.ejs");
 })
 
-app.post("/tweetreply",urlencodedParser, async (req,res)=>{
+app.post("/tweetreply",async (req,res)=>{
     try {
         const {searchParam,textToTweet,numberOFTweets} = req.body;
         console.log(req.body)

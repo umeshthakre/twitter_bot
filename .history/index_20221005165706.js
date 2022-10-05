@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json())
 app.set('views',path.join(__dirname,"views"));
 app.use(express.static(__dirname + "/views"));
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 
 
 function getTweets  (searchParam,textToTweet,numberOFTweets) {
@@ -78,10 +78,9 @@ app.get("/",(req,res)=>{
     res.render("form.ejs");
 })
 
-app.post("/tweetreply",urlencodedParser, async (req,res)=>{
+app.post("/tweetreply",async (req,res)=>{
     try {
-        const {searchParam,textToTweet,numberOFTweets} = req.body;
-        console.log(req.body)
+        const {searchParam,textToTweet,numberOFTweets} = req.data;
         await main(searchParam,textToTweet,numberOFTweets).then((err,data)=>{
             res.send("tweets sent successfully");
         })
